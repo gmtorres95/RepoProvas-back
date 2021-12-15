@@ -1,11 +1,10 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
-import Category from '../entities/Category';
+import * as categoriesService from '../services/categoriesService';
 
 async function getCategories(req: Request, res: Response) {
   try {
-    const result = await getRepository(Category).find();
-    res.send(result);
+    const categories = await categoriesService.getCategories();
+    res.send(categories);
   } catch (error) {
     res.sendStatus(500);
   }
