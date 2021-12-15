@@ -1,14 +1,14 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import NoCategoryFound from '../errors/NoCategoryFound';
 import * as categoriesService from '../services/categoriesService';
 
-async function getCategories(req: Request, res: Response) {
+async function getCategories(req: Request, res: Response, next: NextFunction) {
   try {
     const categories = await categoriesService.getCategories();
     res.send(categories);
   } catch (error) {
     if (error instanceof NoCategoryFound) return res.status(404).send(error.message);
-    res.sendStatus(500);
+    next(error);
   }
 }
 
