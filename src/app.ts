@@ -4,14 +4,14 @@ import connectDatabase from './database';
 import express from 'express';
 import cors from 'cors';
 
-import typesRouter from './routers/typesRouter';
+import categoryRouter from './routers/categoryRouter';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.get('/health', async (req, res) => res.sendStatus(200));
-app.use('/types', typesRouter);
+app.use('/types', categoryRouter);
 
 export async function init () {
   await connectDatabase();
