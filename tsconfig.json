@@ -4,8 +4,6 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "ES6",
-    "moduleResolution": "node"
   },
   "exclude": [
     "node_modules"
