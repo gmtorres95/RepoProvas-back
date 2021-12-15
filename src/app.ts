@@ -4,11 +4,16 @@ import connectDatabase from './database';
 import express from 'express';
 import cors from 'cors';
 
+import categoriesRouter from './routers/categoriesRouter';
+import errorHandler from './middlewares/errorHandler';
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 app.get('/health', async (req, res) => res.sendStatus(200));
+app.use('/categories', categoriesRouter);
+app.use(errorHandler);
 
 export async function init () {
   await connectDatabase();
