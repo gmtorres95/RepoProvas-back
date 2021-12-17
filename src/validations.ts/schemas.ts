@@ -3,7 +3,7 @@ import joi, { string } from 'joi';
 const newExamSchema = joi.object({
   name: joi
     .string()
-    .pattern(/^(([1]\d{3})|([2][0-1]\d{2}))\.[1-2]$/)
+    .pattern(/^((1\d{3})|(20\d{2}))\.[1-2]$/)
     .message('name must contain a valid year and semester (e.g. 2020.1)')
     .required(),
   category_id: joi

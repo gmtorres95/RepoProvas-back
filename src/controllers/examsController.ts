@@ -9,7 +9,7 @@ async function postExam(req: Request, res: Response, next: NextFunction) {
     await validations.validateNewExam(newExam);
     await examsService.postExam(newExam);
 
-    res.status(201).send(newExam);
+    res.sendStatus(201);
   } catch (error) {
     if (error.name === 'NoCategoryFound') return res.status(404).send(error.message);
     if (error.name === 'NoTeacherDisciplineRelationFound') return res.status(404).send(error.message);

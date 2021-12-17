@@ -1,4 +1,4 @@
-import { getRepository, getManager } from 'typeorm';
+import { getRepository } from 'typeorm';
 import faker from 'faker';
 import DisciplineEntity from '../../src/entities/DisciplineEntity';
 

@@ -18,7 +18,7 @@ async function postExam(newExam: NewExam) {
       teacher_id: newExam.teacher_id,
       discipline_id: newExam.discipline_id,
     });
-  if (!relation.length) throw new NoTeacherDisciplineRelationFound('This teacher does not teach this discipline');
+  if (!relation.length) throw new NoTeacherDisciplineRelationFound('Invalid teacher/discipline relation');
 
   await getRepository(ExamEntity).insert(newExam);
 }
