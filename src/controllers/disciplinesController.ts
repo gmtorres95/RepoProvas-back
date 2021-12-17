@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
-import { getRepository } from 'typeorm';
-import DisciplineEntity from '../entities/DisciplineEntity';
+import * as disciplinesService from '../services/disciplinesService';
 
 async function getDisciplines(req: Request, res: Response, next: NextFunction) {
   try {
-    const disciplines = await getRepository(DisciplineEntity).find();
+    const disciplines = await disciplinesService.getDisciplines();
     res.send(disciplines);
   } catch (error) {
     next(error);
@@ -12,5 +11,5 @@ async function getDisciplines(req: Request, res: Response, next: NextFunction) {
 }
 
 export {
-  getDisciplines
+  getDisciplines,
 };
