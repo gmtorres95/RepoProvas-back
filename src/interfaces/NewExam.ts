@@ -1,8 +1,8 @@
 interface NewExam {
   name: string;
-  categoryId: number;
-  teacherId: number;
-  disciplineId: number;
+  category_id: number;
+  teacher_id: number;
+  discipline_id: number;
   link: string;
 }
 
