@@ -6,6 +6,7 @@ async function getDisciplines(req: Request, res: Response, next: NextFunction) {
     const disciplines = await disciplinesService.getDisciplines();
     res.send(disciplines);
   } catch (error) {
+    if (error.name === 'NoDisciplineFound') return res.status(404).send(error.message);
     next(error);
   }
 }
