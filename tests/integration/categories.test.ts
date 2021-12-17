@@ -1,6 +1,6 @@
-import supertest from "supertest";
-import { getConnection } from "typeorm";
-import app, { init } from "../../src/app";
+import supertest from 'supertest';
+import { getConnection } from 'typeorm';
+import app, { init } from '../../src/app';
 import { createCategory } from '../factories/categoryFactory';
 import { clearDatabase } from '../utils/database';
 
@@ -20,13 +20,13 @@ describe('GET /categories', () => {
   });
 
   it('Answers with status 200 and a list of categories', async () => {
-    const category = await createCategory();
+    const categoryId = await createCategory();
     const response = await supertest(app).get('/categories');
     expect(response.status).toBe(200);
     expect(response.body).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ category })
-      ])
+        expect.objectContaining({ id: categoryId })
+      ]),
     );
   });
 });
