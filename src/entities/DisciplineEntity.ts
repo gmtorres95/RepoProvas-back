@@ -9,6 +9,9 @@ export default class DisciplineEntity {
   @Column()
   discipline: string;
 
+  @Column()
+  semester_id: number;
+
   @ManyToMany(() => TeacherEntity, teacher => teacher.id, { eager: true })
   @JoinTable({
     name: 'teachers_disciplines',
@@ -22,4 +25,12 @@ export default class DisciplineEntity {
     }
   })
   teachers: TeacherEntity[];
+
+  getDiscipline() {
+    return {
+      id: this.id,
+      discipline: this.discipline,
+      teachers: this.teachers,
+    }
+  }
 }

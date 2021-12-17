@@ -3,14 +3,13 @@ import faker from 'faker';
 import CategoryEntity from '../../src/entities/CategoryEntity';
 
 async function createCategory() {
-  const categoryName = faker.random.word().slice(0,6);
   const category = await getRepository(CategoryEntity).create({
-    category: categoryName,
+    category: faker.random.word().slice(0,6),
   });
   await getRepository(CategoryEntity).save(category);
-  return categoryName;
+  return category.id;
 }
 
 export {
-  createCategory
+  createCategory,
 };

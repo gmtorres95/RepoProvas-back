@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity('teachers')
-export default class TeacherEntity {
+@Entity('semesters')
+export default class SemesterEntity {
   @PrimaryGeneratedColumn()
   id: number;
   
   @Column()
-  name: string;
+  semester: string;
 }
