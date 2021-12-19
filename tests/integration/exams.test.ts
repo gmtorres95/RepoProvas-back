@@ -1,7 +1,7 @@
 import supertest from 'supertest';
 import { getConnection } from 'typeorm';
 import app, { init } from '../../src/app';
-import NewExam from '../../src/interfaces/NewExam';
+import Exam from '../../src/interfaces/Exam';
 import { createCategory } from '../factories/categoryFactory';
 import { createDiscipline } from '../factories/disciplineFactory';
 import { returnNewExam } from '../factories/examFactory';
@@ -10,7 +10,7 @@ import { createTeacherDisciplineRelation } from '../factories/teacherDisciplineR
 import { createTeacher } from '../factories/teacherFactory';
 import { clearDatabase } from '../utils/database';
 
-let newExam: NewExam;
+let newExam: Exam;
 
 beforeAll(async () => {
   await init();

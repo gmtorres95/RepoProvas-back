@@ -1,4 +1,5 @@
-interface NewExam {
+interface Exam {
+  id?: number;
   name: string;
   category_id: number;
   teacher_id: number;
@@ -6,4 +7,4 @@ interface NewExam {
   link: string;
 }
 
-export default NewExam;
+export default Exam;

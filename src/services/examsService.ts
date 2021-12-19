@@ -4,9 +4,9 @@ import ExamEntity from '../entities/ExamEntity';
 import TeacherDisciplineRelationEntity from '../entities/TeacherDisciplineRelationEntity';
 import NoCategoryFound from '../errors/NoCategoryFound';
 import NoTeacherDisciplineRelationFound from '../errors/NoTeacherDisciplineRelationFound';
-import NewExam from '../interfaces/NewExam';
+import Exam from '../interfaces/Exam';
 
-async function postExam(newExam: NewExam) {
+async function postExam(newExam: Exam) {
   const category = await getRepository(CategoryEntity)
     .find({
       id: newExam.category_id,
