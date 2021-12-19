@@ -8,6 +8,7 @@ import categoriesRouter from './routers/categoriesRouter';
 import disciplinesRouter from './routers/disciplinesRouter';
 import examsRouter from './routers/examsRouter';
 import teachersRouter from './routers/teachersRouter';
+import semesterRouter from './routers/semestersRouter';
 import errorHandler from './middlewares/errorHandler';
 
 const app = express();
@@ -19,6 +20,7 @@ app.use('/categories', categoriesRouter);
 app.use('/disciplines', disciplinesRouter);
 app.use('/teachers', teachersRouter);
 app.use('/exams', examsRouter);
+app.use('/semesters', semesterRouter);
 app.use(errorHandler);
 
 export async function init () {
