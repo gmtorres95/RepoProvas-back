@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
+import ExamEntity from './ExamEntity';
 import TeacherEntity from './TeacherEntity';
 
 @Entity('disciplines')
@@ -12,7 +13,10 @@ export default class DisciplineEntity {
   @Column()
   semester_id: number;
 
-  @ManyToMany(() => TeacherEntity, teacher => teacher.id, { eager: true })
+  @OneToMany(() => ExamEntity, exam => exam.discipline)
+  exams: ExamEntity[];
+
+  @ManyToMany(() => TeacherEntity, teacher => teacher.id)
   @JoinTable({
     name: 'teachers_disciplines',
     joinColumn: {
