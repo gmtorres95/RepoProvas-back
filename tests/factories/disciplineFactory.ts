@@ -8,7 +8,7 @@ async function createDiscipline(semesterId: number) {
     semester_id: semesterId,
   });
   await getRepository(DisciplineEntity).save(discipline);
-  return discipline.id;
+  return discipline;
 }
 
 export {

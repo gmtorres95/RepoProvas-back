@@ -7,7 +7,7 @@ async function createTeacher() {
     name: `${faker.name.firstName()} ${faker.name.lastName()}`,
   });
   await getRepository(TeacherEntity).save(teacher);
-  return teacher.id;
+  return teacher;
 }
 
 export {

@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import NewExam from '../interfaces/NewExam';
+import Exam from '../interfaces/Exam';
 import * as examsService from '../services/examsService';
 import * as validations from '../validations.ts/validations';
 
 async function postExam(req: Request, res: Response, next: NextFunction) {
   try {
-    const newExam: NewExam = req.body;
+    const newExam: Exam = req.body;
     await validations.validateNewExam(newExam);
     await examsService.postExam(newExam);
 

@@ -1,25 +1,25 @@
 import supertest from 'supertest';
 import { getConnection } from 'typeorm';
 import app, { init } from '../../src/app';
-import NewExam from '../../src/interfaces/NewExam';
+import Exam from '../../src/interfaces/Exam';
 import { createCategory } from '../factories/categoryFactory';
+import { clearDatabase } from '../utils/database';
 import { createDiscipline } from '../factories/disciplineFactory';
-import { returnNewExam } from '../factories/examFactory';
 import { createSemester } from '../factories/semesterFactory';
 import { createTeacherDisciplineRelation } from '../factories/teacherDisciplineRelationFactory';
 import { createTeacher } from '../factories/teacherFactory';
-import { clearDatabase } from '../utils/database';
+import { returnNewExam } from '../factories/examFactory';
 
-let newExam: NewExam;
+let newExam: Exam;
 
 beforeAll(async () => {
   await init();
-  const semesterId = await createSemester();
-  const disciplineId = await createDiscipline(semesterId);
-  const teacherId = await createTeacher();
-  const categoryId = await createCategory();
-  await createTeacherDisciplineRelation(teacherId, disciplineId);
-  newExam = returnNewExam(categoryId, teacherId, disciplineId);
+  const semester = await createSemester();
+  const discipline = await createDiscipline(semester.id);
+  const teacher = await createTeacher();
+  const category = await createCategory();
+  await createTeacherDisciplineRelation(teacher.id, discipline.id);
+  newExam = returnNewExam(category, teacher, discipline);
 });
 
 afterAll(async () => {
@@ -39,12 +39,13 @@ describe('POST /exams', () => {
   });
 
   it('Answers with status 404 for invalid category', async () => {
-    const categoryId = await createCategory();
-    const semesterId = await createSemester();
-    const disciplineId = await createDiscipline(semesterId);
-    const teacherId = await createTeacher();
-    await createTeacherDisciplineRelation(teacherId, disciplineId);
-    const invalidExam = await returnNewExam(categoryId + 100, teacherId, disciplineId);
+    const category = await createCategory();
+    const semester = await createSemester();
+    const discipline = await createDiscipline(semester.id);
+    const teacher = await createTeacher();
+    await createTeacherDisciplineRelation(teacher.id, discipline.id);
+    const invalidExam = await returnNewExam(category, teacher, discipline);
+    invalidExam.category_id = category.id + 1000;
 
     const result = await supertest(app).post('/exams').send(invalidExam);
     expect(result.status).toBe(404);
@@ -52,11 +53,11 @@ describe('POST /exams', () => {
   });
 
   it('Answers with status 404 for invalid teacher/discipline relation', async () => {
-    const categoryId = await createCategory();
-    const semesterId = await createSemester();
-    const disciplineId = await createDiscipline(semesterId);
-    const teacherId = await createTeacher();
-    const invalidExam = await returnNewExam(categoryId, teacherId, disciplineId);
+    const category = await createCategory();
+    const semester = await createSemester();
+    const discipline = await createDiscipline(semester.id);
+    const teacher = await createTeacher();
+    const invalidExam = await returnNewExam(category, teacher, discipline);
 
     const result = await supertest(app).post('/exams').send(invalidExam);
     expect(result.status).toBe(404);
@@ -64,12 +65,12 @@ describe('POST /exams', () => {
   });
 
   it('Answers with status 400 for invalid request', async () => {
-    const categoryId = await createCategory();
-    const semesterId = await createSemester();
-    const disciplineId = await createDiscipline(semesterId);
-    const teacherId = await createTeacher();
-    await createTeacherDisciplineRelation(teacherId, disciplineId);
-    const invalidExam = await returnNewExam(categoryId, teacherId, disciplineId);
+    const category = await createCategory();
+    const semester = await createSemester();
+    const discipline = await createDiscipline(semester.id);
+    const teacher = await createTeacher();
+    await createTeacherDisciplineRelation(teacher.id, discipline.id);
+    const invalidExam = await returnNewExam(category, teacher, discipline);
     delete invalidExam.name;
 
     const result = await supertest(app).post('/exams').send(invalidExam);

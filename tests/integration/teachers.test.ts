@@ -1,11 +1,13 @@
 import supertest from 'supertest';
 import { getConnection } from 'typeorm';
 import app, { init } from '../../src/app';
+import { createCategory } from '../factories/categoryFactory';
 import { clearDatabase } from '../utils/database';
 import { createDiscipline } from '../factories/disciplineFactory';
 import { createSemester } from '../factories/semesterFactory';
 import { createTeacherDisciplineRelation } from '../factories/teacherDisciplineRelationFactory';
 import { createTeacher } from '../factories/teacherFactory';
+import { createExam } from '../factories/examFactory';
 
 beforeAll(async () => {
   await init();
@@ -16,30 +18,33 @@ afterAll(async () => {
   await getConnection().close();
 });
 
-describe('GET /disciplines', () => {
+describe('POST /exams', () => {
   it('Answers with status 404', async () => {
-    const response = await supertest(app).get('/disciplines');
+    const response = await supertest(app).get('/teachers');
     expect(response.status).toBe(404);
   });
 
-  it('Answers with status 200 and a list of disciplines', async () => {
+  it('Answers with status 200 and a list of teachers', async () => {
+    const category = await createCategory();
     const semester = await createSemester();
     const discipline = await createDiscipline(semester.id);
-    const teacher1 = await createTeacher();
-    const teacher2 = await createTeacher();
-    await createTeacherDisciplineRelation(teacher1.id, discipline.id);
-    await createTeacherDisciplineRelation(teacher2.id, discipline.id);
+    const teacher = await createTeacher();
+    await createTeacherDisciplineRelation(teacher.id, discipline.id);
+    const exam1 = await createExam(category, teacher, discipline);
+    const exam2 = await createExam(category, teacher, discipline);
+    exam1.discipline = discipline;
+    exam2.discipline = discipline;
+    exam1.category = category;
+    exam2.category = category;
 
-    const response = await supertest(app).get('/disciplines');
+    const response = await supertest(app).get('/teachers');
     expect(response.status).toBe(200);
     expect(response.body).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: discipline.id,
-          teachers: expect.arrayContaining([
-            expect.objectContaining({ id: teacher1.id }),
-            expect.objectContaining({ id: teacher2.id }),
-          ]),
+          id: teacher.id,
+          name: teacher.name,
+          exams: expect.arrayContaining([exam1, exam2])
         }),
       ]),
     );

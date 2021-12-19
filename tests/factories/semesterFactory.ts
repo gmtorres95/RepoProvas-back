@@ -7,7 +7,7 @@ async function createSemester() {
     semester: faker.random.word().slice(0,10),
   });
   await getRepository(SemesterEntity).save(semester);
-  return semester.id;
+  return semester;
 }
 
 export {
