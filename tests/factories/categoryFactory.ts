@@ -7,7 +7,7 @@ async function createCategory() {
     category: faker.random.word().slice(0,6),
   });
   await getRepository(CategoryEntity).save(category);
-  return category.id;
+  return category;
 }
 
 export {

@@ -10,8 +10,8 @@ interface Exam {
   discipline_id: number;
   link: string;
   teacher?: Teacher;
-  discipline: Discipline;
-  category: Category;
+  discipline?: Discipline;
+  category?: Category;
 }
 
 export default Exam;
