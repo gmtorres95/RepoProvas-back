@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Exam from '../interfaces/Exam';
 import * as examsService from '../services/examsService';
-import * as validations from '../validations.ts/validations';
+import * as validations from '../validations/validations';
 
 async function postExam(req: Request, res: Response, next: NextFunction) {
   try {
