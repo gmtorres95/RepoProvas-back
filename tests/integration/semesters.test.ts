@@ -33,7 +33,9 @@ describe('GET /semesters', () => {
     const exam1 = await createExam(category, teacher, discipline);
     const exam2 = await createExam(category, teacher, discipline);
     exam1.category = category;
+    exam1.teacher = teacher;
     exam2.category = category;
+    exam2.teacher = teacher;
 
 
     const response = await supertest(app).get('/semesters');
