@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import ExamEntity from './ExamEntity';
+import SemesterEntity from './SemesterEntity';
 import TeacherEntity from './TeacherEntity';
 
 @Entity('disciplines')
@@ -29,6 +30,10 @@ export default class DisciplineEntity {
     }
   })
   teachers: TeacherEntity[];
+
+  @ManyToOne(() => SemesterEntity, semester => semester.disciplines)
+  @JoinColumn({ name: 'semester_id' })
+  semester: SemesterEntity;
 
   getDiscipline() {
     return {
