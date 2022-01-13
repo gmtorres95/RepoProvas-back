@@ -3,7 +3,7 @@
 <img src="https://github.com/gmtorres95/RepoProvas-front/blob/main/public/logo192.png" />
 
 Share and search for old exams to help you study.  
-Check the this application in production [here](https://repoprovas-one.vercel.app)  
+Check the front-end of this application [here](https://github.com/gmtorres95/RepoProvas-front)  
 Link of the API: https://apirp.herokuapp.com/
 
 ## Technologies
