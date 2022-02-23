@@ -1,6 +1,4 @@
-# RepoProvas (back-end)
-
-<img src="https://github.com/gmtorres95/RepoProvas-front/blob/main/public/logo192.png" />
+# <img src="https://github.com/gmtorres95/RepoProvas-front/blob/main/public/favicon.ico" height="24px" /> RepoProvas (back-end)
 
 Share and search for old exams to help you study.  
 Check the front-end of this application [here](https://github.com/gmtorres95/RepoProvas-front)  
